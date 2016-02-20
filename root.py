@@ -20,7 +20,7 @@ def deploy():
         errors = "Error Occurred: %s\n" % e
     try:
         with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
-            log = logfile.read().replace('\n', '\n<br>')
+            log = logfile.read()
     except Exception as fe:
         return "Job started.\n Could not display the log file.\n" + str(fe)
     return errors + log
