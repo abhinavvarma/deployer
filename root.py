@@ -11,6 +11,8 @@ app = Flask(__name__)
 def deploy():
     errors = ""
     try:
+        with open(DEPLOYMENT_LOG_PATH, 'w') as logfile:
+            logfile.write(str(request.data))
         call([DEPLOYMENT_SCRIPT_PATH])
     except Exception as e:
         errors = "Error Occured: %s\n"%e
@@ -19,7 +21,7 @@ def deploy():
             log = logfile.read().replace('\n', '<br>')
     except Exception as fe:
         return "Job started.\n Could not display the log file.\n" + str(fe)
-    return str(request.data)+errors + log
+    return errors + log
 
 if __name__ == "__main__":
     app.run()
