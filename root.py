@@ -25,6 +25,5 @@ def deploy():
         return "Job started.\n Could not display the log file.\n" + str(fe)
     return errors + log
 
-
 if __name__ == "__main__":
     app.run()
