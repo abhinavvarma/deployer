@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route("/deploy/", methods=["POST"])
 def deploy():
     push_data = json.loads(request.data)
-    if push_data.ge('ref') != REF_TO_WATCH:
+    if push_data.get('ref') != REF_TO_WATCH:
         return "Sorry! I am not watching this ref"
     errors = ""
     try:
