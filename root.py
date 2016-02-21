@@ -14,7 +14,7 @@ def get_log():
     try:
         content = "<h2>DEPLOYMENT LOG FILE</h2><hr>"
         with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
-            content += logfile.readall()
+            content += "\n".join(logfile.readlines())
     except Exception as fe:
         return "" + str(fe)
     return content.replace("\n", "<br>")
