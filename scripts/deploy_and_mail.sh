@@ -7,9 +7,9 @@ SUCCESS_MAIL_SUBJECT="Auto-Deployment ($ist): Godavari is successfully redeploye
 FAILURE_MAIL_SUBJECT="Auto-Deployment ($ist): Godavari deployment failed"
 MAIL_RECEPIENT="abhinav.varma123@gmail.com"
 
-"$DEPLOYMENT_ROOT/deployer/scripts/deploy.sh > $DEPLOYMENT_LOG_PATH 2>&1" || {
+"$DEPLOYMENT_ROOT/deployer/scripts/deploy.sh" > $DEPLOYMENT_LOG_PATH 2>&1 || {
     echo "Error: Deploy failed";
-    mail -s "$FAILURE_MAIL_SUBJECT" -aFrom:autodep.godavari $MAIL_RECEPIENT < $DEPLOYMENT_LOG_PATH
+#    mail -s "$FAILURE_MAIL_SUBJECT" -aFrom:autodep.godavari $MAIL_RECEPIENT < $DEPLOYMENT_LOG_PATH
     exit 1;
 }
 
