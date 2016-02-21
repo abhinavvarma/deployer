@@ -4,7 +4,7 @@ import datetime
 
 from flask import Flask
 from flask import request
-from settings import DEPLOYMENT_WATCHED_LOG_PATH, REF_TO_WATCH
+from settings import DEPLOYMENT_WATCHED_LOG_PATH, REF_TO_WATCH, DEPLOYMENT_LOG_PATH
 
 app = Flask(__name__)
 
@@ -22,6 +22,16 @@ def deploy():
         return "" + str(fe)
     return content
 
+
+@app.route("/deploy/log", methods=["GET"])
+def get_log():
+    try:
+        content = "<h2>DEPLOYMENT LOG FILE</h2><hr>"
+        with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
+            content += logfile.readall()
+    except Exception as fe:
+        return "" + str(fe)
+    return content.replace("\n", "<br>")
 
 if __name__ == "__main__":
     app.run()
