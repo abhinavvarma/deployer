@@ -9,6 +9,17 @@ from settings import DEPLOYMENT_WATCHED_LOG_PATH, REF_TO_WATCH, DEPLOYMENT_LOG_P
 app = Flask(__name__)
 
 
+@app.route("/deploy/log", methods=["GET"])
+def get_log():
+    try:
+        content = "<h2>DEPLOYMENT LOG FILE</h2><hr>"
+        with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
+            content += logfile.readall()
+    except Exception as fe:
+        return "" + str(fe)
+    return content.replace("\n", "<br>")
+
+
 @app.route("/deploy/", methods=["POST"])
 def deploy():
     push_data = json.loads(request.data)
@@ -22,16 +33,6 @@ def deploy():
         return "" + str(fe)
     return content
 
-
-@app.route("/deploy/log", methods=["GET"])
-def get_log():
-    try:
-        content = "<h2>DEPLOYMENT LOG FILE</h2><hr>"
-        with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
-            content += logfile.readall()
-    except Exception as fe:
-        return "" + str(fe)
-    return content.replace("\n", "<br>")
 
 if __name__ == "__main__":
     app.run()
