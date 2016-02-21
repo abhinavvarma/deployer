@@ -1,9 +1,10 @@
 import json
-from subprocess import call
+
+import datetime
 
 from flask import Flask
 from flask import request
-from settings import DEPLOYMENT_SCRIPT_PATH, DEPLOYMENT_LOG_PATH, REF_TO_WATCH
+from settings import DEPLOYMENT_WATCHED_LOG_PATH, REF_TO_WATCH
 
 app = Flask(__name__)
 
@@ -13,17 +14,13 @@ def deploy():
     push_data = json.loads(request.data)
     if push_data.get('ref') != REF_TO_WATCH:
         return "Sorry! I am not watching this ref"
-    errors = ""
     try:
-        call([DEPLOYMENT_SCRIPT_PATH])
-    except Exception as e:
-        errors = "Error Occurred: %s\n" % e
-    try:
-        with open(DEPLOYMENT_LOG_PATH, 'r') as logfile:
-            log = logfile.read()
+        content = "(%s): Deployment is scheduled"%(datetime.datetime.utcnow())
+        with open(DEPLOYMENT_WATCHED_LOG_PATH, 'w') as logfile:
+            logfile.write(content)
     except Exception as fe:
-        return "Job started.\n Could not display the log file.\n" + str(fe)
-    return errors + log
+        return "" + str(fe)
+    return content
 
 
 if __name__ == "__main__":

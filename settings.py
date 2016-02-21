@@ -1,6 +1,4 @@
-DEPLOYMENT_SCRIPT_PATH = "/home/ubuntu/deployments/scripts/build_and_log.sh"
-
-DEPLOYMENT_LOG_PATH = "/home/ubuntu/logs/deployment.log"
+DEPLOYMENT_WATCHED_LOG_PATH = "/home/ubuntu/logs/deployment-watcher.log"
 
 BRANCH_TO_WATCH = "stable"
 
