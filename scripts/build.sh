@@ -11,6 +11,7 @@ else
   echo "Could not cd to $DEPLOYMENT_PATH"
   exit 1;
 fi
+echo "Reverting all local changes"
 git reset --hard || { echo "Error: Could not git reset"; exit 1;}
 git checkout $DEPLOYMENT_BRANCH || { echo "Error: Could not checkout to $DEPLOYMENT_BRANCH"; exit 1;}
 git pull || { echo "Error: Could not pull changes"; exit 1;}
